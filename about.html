@@ -150,6 +150,60 @@
     </div>
 </main>
 
+
+
+
+<script>
+ // Mobile menu toggle logic
+const hamburgerBtn = document.querySelector('.hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+const closeBtn = document.querySelector('.mobile-menu .close-btn');
+function openMenu() {
+    mobileMenu.classList.add('open');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    hamburgerBtn.setAttribute('aria-expanded', 'true');
+}
+function closeMenu() {
+    mobileMenu.classList.remove('open');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
+}
+hamburgerBtn.addEventListener('click', openMenu);
+closeBtn.addEventListener('click', closeMenu);
+
+  // Close menu if clicked outside mobile menu on mobile
+  window.addEventListener('click', (e) => {
+    if (e.target === mobileMenu) {
+      closeMenu();
+    }
+  });
+
+  // Accessibility: trap focus inside mobile menu when open
+  mobileMenu.addEventListener('keydown', (e) => {
+    if (!mobileMenu.classList.contains('open')) return;
+    if (e.key === 'Tab') {
+      const focusableElements = [closeBtn, ...mobileLinks];
+      const firstElem = focusableElements[0];
+      const lastElem = focusableElements[focusableElements.length - 1];
+      if (e.shiftKey) { // Shift + Tab
+        if (document.activeElement === firstElem) {
+          e.preventDefault();
+          lastElem.focus();
+        }
+      } else { // Tab
+        if (document.activeElement === lastElem) {
+          e.preventDefault();
+          firstElem.focus();
+        }
+      }
+    }
+    if (e.key === 'Escape') {
+      closeMenu();
+    }
+  });
+</script>
+
+
 <footer role="contentinfo">
     &copy; 2024 cozy corner by ym — All rights reserved.
 </footer>
