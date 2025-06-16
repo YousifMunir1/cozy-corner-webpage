@@ -94,8 +94,14 @@
     font-size: 28px;
   }
 
+
+
+
+
+
   /* Mobile menu overlay */
   .mobile-menu {
+   z-index: 1001;
     transition: transform 0.35s ease;
     position: fixed;
     top: 0;
@@ -109,6 +115,7 @@
     display: flex;
     flex-direction: column;
   }
+
   .mobile-menu.open {
     transform: translateX(0);
   }
@@ -217,13 +224,10 @@
   </button>
 </header>
 
-<nav id="mobile-menu" class="mobile-menu" role="navigation" aria-label="Mobile primary navigation" aria-hidden="true">
-  <button class="close-btn" aria-label="Close menu"><span class="material-icons">close</span></button>
-  <a href="#home" tabindex="-1">Home</a>
-  <a href="#menu" tabindex="-1">menu</a>
-  <a href="#about" tabindex="-1">About Us</a>
-  <a href="#contact" tabindex="-1">Contact</a>
-</nav>
+
+
+
+
 
 <main id="home" role="main">
   <section class="hero-content" aria-label="Coffee themed main hero section">
@@ -236,34 +240,32 @@
   &copy; 2024 cozy corner by ym — All rights reserved.
 </footer>
 
-<script>
-  // Mobile menu toggle logic
-  const hamburgerBtn = document.querySelector('.hamburger');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const closeBtn = document.querySelector('.mobile-menu .close-btn');
-  const mobileLinks = mobileMenu.querySelectorAll('a');
+<nav id="mobile-menu" class="mobile-menu" aria-hidden="true">
+  <span class="close-btn material-icons" aria-label="Close menu">close</span>
+  <a href="index.html">Home</a>
+  <a href="menu.html">Menu</a>
+  <a href="about.html">About Us</a>
+  <a href="contact.html">Contact</a>
+</nav>
 
-  function openMenu() {
+
+<script>
+ // Mobile menu toggle logic
+const hamburgerBtn = document.querySelector('.hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+const closeBtn = document.querySelector('.mobile-menu .close-btn');
+function openMenu() {
     mobileMenu.classList.add('open');
     mobileMenu.setAttribute('aria-hidden', 'false');
     hamburgerBtn.setAttribute('aria-expanded', 'true');
-    mobileLinks.forEach(link => link.tabIndex = 0);
-    closeBtn.focus();
-  }
-  function closeMenu() {
+}
+function closeMenu() {
     mobileMenu.classList.remove('open');
     mobileMenu.setAttribute('aria-hidden', 'true');
     hamburgerBtn.setAttribute('aria-expanded', 'false');
-    mobileLinks.forEach(link => link.tabIndex = -1);
-    hamburgerBtn.focus();
-  }
-
-  hamburgerBtn.addEventListener('click', () => {
-    openMenu();
-  });
-  closeBtn.addEventListener('click', () => {
-    closeMenu();
-  });
+}
+hamburgerBtn.addEventListener('click', openMenu);
+closeBtn.addEventListener('click', closeMenu);
 
   // Close menu if clicked outside mobile menu on mobile
   window.addEventListener('click', (e) => {
@@ -295,6 +297,9 @@
       closeMenu();
     }
   });
+
+
+  
 </script>
 </body>
 </html>
